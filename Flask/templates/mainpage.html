@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>Main page</title>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td><a href="/">Main page</a></td>
+            {% if session['admin'] %}
+            <td><a href="/users">Users</a></td>
+            {% endif %}
+            <td><a href="/logout">Logout</a></td>
+        </tr>
+    </table>
+    <h1>
+        Books
+    </h1>
+    <table border="1">
+        <thead>
+           <td></td>
+           <td>Title</td>
+           <td>Genre</td>
+           {% if session['admin'] %}
+           <td>Action</td>
+           {% endif %}
+        </thead>
+        
+        {% for book in books %}
+           <tr>
+              <td>{{book[0]}}</td>
+              <td>{{book[1]}}</td>
+              <td>{{book[2]}}</td>
+              {% if session['admin'] %}
+              <td><a href="/delete_book?book={{book[0]}}">Delete</a></td>
+              {% endif %}
+           </tr>
+        {% endfor %}
+     </table>
+
+    <h1>
+        Add book
+    </h1>
+    <form method=post action="/add_book">
+        Title: <input type=text name=title>
+        Genre: <input type=text name=genre>
+        <input type=submit>
+    </form>
+</body>
+
+</html>
